@@ -22,7 +22,7 @@ module.exports = {
                 },
                 {
                     name: '```--ping```',
-                    value: 'Currently doesn\'t do anything',
+                    value: 'Shows latency of the bot',
                 }
             ]
         }
