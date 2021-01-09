@@ -109,4 +109,4 @@ client.on('guildBanAdd', member => {
 })
 
 
-client.login(token)
+client.login(token);
