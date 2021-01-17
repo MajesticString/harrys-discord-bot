@@ -1,9 +1,8 @@
 module.exports = {
     name: 'ping',
     description: 'this is a ping command.',
-    execute(message, args){
-        message.channel.send('Pong!');
-        setTimeout(() => {message.channel.send(`Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);}, 1000);
-
-    }
-}
+};
+module.exports.run = async message => {
+    const m = await message.channel.send("〽️ Pinging...");
+    return m.edit(`🏓\nServer latency is \`${m.createdTimestamp - message.createdTimestamp}ms\`\nAPI latency is \`${Math.round(message.client.ws.ping)}ms\`\nUptime is \`${message.client.uptime}ms\`.`);
+};
