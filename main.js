@@ -27,8 +27,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
     console.log('harrybot is online');
     client.user.setActivity("--help", {
-        type: "STREAMING",
-        url: ""
+        type: "PLAYING",
       });
 });
 
@@ -62,24 +61,25 @@ client.on('guildMemberAdd', member => {
     if (!channel) return;
     let dmMessageOnJoin = new Discord.MessageEmbed()
         .setColor('#00d0ff')
-        .setTitle(`Welcome, ${member}`)
-        .setDescription('Please read the rules in [#rules](https://discord.com/channels/738259551769460807/742089240610996274), and maybe pick up some roles in [#roles](https://discord.com/channels/738259551769460807/755492029408084088)!');
-
+        .setTitle(`Welcome, ${member.user.tag}`)
+        .setDescription('Please read the rules in [#rules](https://discord.com/channels/738259551769460807/742089240610996274), and maybe pick up some roles in [#roles](https://discord.com/channels/738259551769460807/755492029408084088)!')
+        .addFields(
+            {name: `You are the ${member.guild.memberCount} member!`},
+        );
     member.send(dmMessageOnJoin);
     channel.send(dmMessageOnJoin);
 })
 
 client.on('guildMemberRemove', member => {
     const channel = member.guild.channels.cache.find(channel => channel.name === 'joins')
-    let dmMessageOnLeave = new Discord.MessageEmbed()
-        .setColor('#ff0000')
-        .setTitle(`why'd you leave, ${member}?`)
-        .setDescription('im nice, so here is an invite back into the server if you ever change your mind. [CLICK HERE](https://discord.gg/xNpJjpma3v)');
+    // let dmMessageOnLeave = new Discord.MessageEmbed()
+    //     .setColor('#ff0000')
+    //     .setTitle(`why'd you leave, <@!${member}>?`)
+    //     .setDescription('im nice, so here is an invite back into the server if you ever change your mind. [CLICK HERE](https://discord.gg/3krP396KWE)');
     if (!channel) return;
     let channelMessageOnLeave = new Discord.MessageEmbed()
         .setColor('#ff0000')
-        .setTitle(`${member} left the server!`)
-    member.send(dmMessageOnLeave);
+        .setTitle(`${member.user.tag} left the server!`)
     channel.send(channelMessageOnLeave);
 });
 
@@ -92,25 +92,21 @@ client.on('message', message => {
     const command = args.shift().toLowerCase();
 
     if (command === 'ping') {
-        // message.channel.send('Pong!').then(sentMessage => {
-        //     sentMessage.edit(setTimeout(() => { message.channel.send(`**Latency:** \`${Date.now() - message.createdTimestamp}ms\`\n**API Latency:** \`${Math.round(client.ws.ping)}ms\``); }, 500));
-
-        // });
         client.commands.get('ping').run(message, args, Discord);
-
-
     } else if (command === 'quote') {
         var quote = [
             '\"Two things are infinite: the universe and human stupidity; and I\'m not sure about the universe.\"\n-Albert einstein',
             '\“Procrastination is the art of keeping up with yesterday.\” \n – Don Marquis.'
         ];
-        var color = [0xff9cee, 0xf6a6ff, 0xb28dff, 0x97a2ff, 0xaff8db, 0x6eb5ff, 0xffabab, 0xfff5ba, 0x85e3ff, 0xbffcc6];
+        var color = [0x00c09a, 0x008369, 0x00d166, 0x008e44, 0x0099e1, 0x006798, 0xa652bb, 0x712f8f, 0xfd0061, 0xbc0057, 0xf8c300, 0xcc7900, 0xf93a2f, 0xa62019, 0x91a6a6, 0x969c9f, 0x597e8d, 0x4e6f7b];
         var randomColor = color[Math.floor(Math.random() * color.length)];
+
         var randomItem = quote[Math.floor(Math.random() * quote.length)];
         message.channel.send({embed: {
             color: randomColor,
             description: randomItem,
         }});
+        console.log(`--quote`);
     } else if (command === 'rr') {
         client.commands.get('rr').execute(message, args, Discord, client)
     } else if (command === 'kick') {
@@ -123,6 +119,23 @@ client.on('message', message => {
         client.commands.get('help').run(message, args);
     } else if (command === 'clear') {
         client.commands.get('clear').execute(message, args);
+    } else if (command === 'play') {
+        client.commands.get('play').execute(message, args);
+    } else if (command === 'leave') {
+        client.commands.get('leave').execute(message, args);
+    } else if (command === 'stop') {
+        client.commands.get('leave').execute(message, args);
+    } else if (command === 'skip') {
+        var server = servers[message.guild.id];
+
+        if(server.dispatcher) server.dispatcher.end();
+        message.channel.send('Skipped!');
+    } else if (command === ' '){
+        message.channel.send('You can\'t have a space between the prefix and the command.')
+    } else if (command === 'changelog') {
+        message.channel.send('Changelog sent to DM\'s');
+    } else {
+        message.channel.send('this isn\'t even a command, what are you doing');
     }
 
 
@@ -133,7 +146,7 @@ client.on('guildBanAdd', member => {
     if (!channel) return;
     let banEmbed = new Discord.MessageEmbed()
         .setColor('#ff0000')
-        .setTitle(`${member} has been banned.`)
+        .setTitle(`${member.user.tag} has been banned.`)
     channel.send(banEmbed);
 })
 
