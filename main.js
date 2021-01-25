@@ -31,6 +31,8 @@ client.once('ready', () => {
       });
 });
 
+var color = [0x00c09a, 0x008369, 0x00d166, 0x008e44, 0x0099e1, 0x006798, 0xa652bb, 0x712f8f, 0xfd0061, 0xbc0057, 0xf8c300, 0xcc7900, 0xf93a2f, 0xa62019, 0x91a6a6, 0x969c9f, 0x597e8d, 0x4e6f7b];
+var randomColor = color[Math.floor(Math.random() * color.length)];
 
 let stats = {
     serverID: '738259551769460807',
@@ -98,9 +100,6 @@ client.on('message', message => {
             '\"Two things are infinite: the universe and human stupidity; and I\'m not sure about the universe.\"\n-Albert einstein',
             '\“Procrastination is the art of keeping up with yesterday.\” \n – Don Marquis.'
         ];
-        var color = [0x00c09a, 0x008369, 0x00d166, 0x008e44, 0x0099e1, 0x006798, 0xa652bb, 0x712f8f, 0xfd0061, 0xbc0057, 0xf8c300, 0xcc7900, 0xf93a2f, 0xa62019, 0x91a6a6, 0x969c9f, 0x597e8d, 0x4e6f7b];
-        var randomColor = color[Math.floor(Math.random() * color.length)];
-
         var randomItem = quote[Math.floor(Math.random() * quote.length)];
         message.channel.send({embed: {
             color: randomColor,
@@ -125,15 +124,21 @@ client.on('message', message => {
         client.commands.get('leave').execute(message, args);
     } else if (command === 'stop') {
         client.commands.get('leave').execute(message, args);
-    } else if (command === 'skip') {
-        var server = servers[message.guild.id];
-
-        if(server.dispatcher) server.dispatcher.end();
-        message.channel.send('Skipped!');
     } else if (command === ' '){
         message.channel.send('You can\'t have a space between the prefix and the command.')
     } else if (command === 'changelog') {
-        message.channel.send('Changelog sent to DM\'s');
+  
+        message.author.send({embed: { 
+            title: 'Full Changelog:',
+            color: randomColor,
+            description: 'Source code: [https://github.com/MajesticString/harrys-discord-bot](https://github.com/MajesticString/harrys-discord-bot)\nHarrybot trailer: [https://youtube.com/watch?v=a7EjF98Sb](https://youtu.be/dQw4w9WgXcQ)',
+            fields: [
+                {
+                    name: 'v0.5',
+                    value: 'Added music functionality\nAdded change log\nFixed username appearing as ID on join and leave\nMade embed colors better and more random'
+                }
+            ]}});
+        message.channel.send('I DM\'ed you the full changelog. You can also go to https://github.com/MajesticString/harrys-discord-bot to find the source code, and changelog there as well.');
     } else {
         message.channel.send('this isn\'t even a command, what are you doing');
     }
