@@ -1,2 +1,6 @@
-
+# Contains bot token
 .env
+
+# Config file
+package.json
+package-lock.json

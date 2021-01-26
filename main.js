@@ -65,6 +65,7 @@ client.on('guildMemberAdd', member => {
         .setColor('#00d0ff')
         .setTitle(`Welcome, ${member.user.tag}`)
         .setDescription('Please read the rules in [#rules](https://discord.com/channels/738259551769460807/742089240610996274), and maybe pick up some roles in [#roles](https://discord.com/channels/738259551769460807/755492029408084088)!')
+        .setThumbnail(`${member.user.avatarURL}`)
         .addFields(
             {name: `You are the ${member.guild.memberCount} member!`},
         );
@@ -82,6 +83,7 @@ client.on('guildMemberRemove', member => {
     let channelMessageOnLeave = new Discord.MessageEmbed()
         .setColor('#ff0000')
         .setTitle(`${member.user.tag} left the server!`)
+        .setThumbnail(`${member.user.avatarURL}`)
     channel.send(channelMessageOnLeave);
 });
 
@@ -138,23 +140,12 @@ client.on('message', message => {
                     value: 'Added music functionality\nAdded change log\nFixed username appearing as ID on join and leave\nMade embed colors better and more random'
                 }
             ]}});
-        message.channel.send('I DM\'ed you the full changelog. You can also go to https://github.com/MajesticString/harrys-discord-bot to find the source code, and changelog there as well.');
+        message.channel.send('I DM\'ed you the full changelog. You can also go to <https://github.com/MajesticString/harrys-discord-bot> to find the source code, and changelog there as well.');
     } else {
         message.channel.send('this isn\'t even a command, what are you doing');
     }
 
 
 })
-
-client.on('guildBanAdd', member => {
-    const channel = member.guild.channels.cache.find(channel => channel.name === 'log')
-    if (!channel) return;
-    let banEmbed = new Discord.MessageEmbed()
-        .setColor('#ff0000')
-        .setTitle(`${member.user.tag} has been banned.`)
-    channel.send(banEmbed);
-})
-
-
 
 client.login(process.env.DISCORD_TOKEN);
