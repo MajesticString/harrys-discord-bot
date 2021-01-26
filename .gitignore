@@ -4,3 +4,6 @@
 # Config file
 package.json
 package-lock.json
+
+# Dependency directories
+node_modules/
