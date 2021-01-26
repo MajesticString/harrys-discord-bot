@@ -8,6 +8,7 @@ const queue = new Map();
 const prefix = '--';
 const ytdl = require("ytdl-core");
 const fs = require('fs');
+const { send } = require('process');
 
 client.commands = new Discord.Collection();
 // client.events = new Discord.Collection();
@@ -141,6 +142,8 @@ client.on('message', message => {
                 }
             ]}});
         message.channel.send('I DM\'ed you the full changelog. You can also go to <https://github.com/MajesticString/harrys-discord-bot> to find the source code, and changelog there as well.');
+    } else if(command === 'say'){
+        message.channel.send(args[0] + `\n\nRequested by <@${message.author.id}>`);
     } else {
         message.channel.send('this isn\'t even a command, what are you doing');
     }
