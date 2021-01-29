@@ -2,7 +2,7 @@ module.exports = {
     name: 'help',
     description: 'Help command',
 }
-module.exports.run = async message => {
+module.exports.execute = async message => {
     console.log(`--help`)
     var color = [0x00c09a, 0x008369, 0x00d166, 0x008e44, 0x0099e1, 0x006798, 0xa652bb, 0x712f8f, 0xfd0061, 0xbc0057, 0xf8c300, 0xcc7900, 0xf93a2f, 0xa62019, 0x91a6a6, 0x969c9f, 0x597e8d, 0x4e6f7b];
     var randomColor = color[Math.floor(Math.random() * color.length)];
@@ -32,6 +32,16 @@ module.exports.run = async message => {
                 inline: true
             },
             {
+                name: '```--meme```',
+                value: 'Gets a meme from Reddit',
+                inline: true
+            },
+            {
+                name: '```--say```',
+                value: 'Makes harrybot say something on your behalf',
+                inline: true
+            },
+            {
                 name: '**Music Commands**',
                 value: '\u200b',
                 
@@ -46,6 +56,7 @@ module.exports.run = async message => {
                 value: 'The bot will stop the song and leave the voice channel.',
                 inline: true
             }
+            
 
         ]
     }

@@ -1,3 +1,6 @@
-module.exports = () =>{
-    console.log('harry bot is online');
+module.exports = (client) => {
+    console.log('harrybot is online');
+    client.user.setActivity("--help", {
+        type: "PLAYING",
+    });
 }
