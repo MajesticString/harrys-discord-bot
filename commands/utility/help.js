@@ -1,8 +1,9 @@
 const recon = require('reconlx')
 module.exports = {
-    name: 'newhelp',
+    name: 'help',
     description: 'new help menu',
-    async execute(message, client, randomHexColor, Discord) {
+    commands: ['help', 'command', 'commands', 'newhelp', 'oldhelp'],
+    callback(message, client, text, Harrybot, randomHexColor, Discord) {
         const { MessageEmbed } = require('discord.js');
         const general = new MessageEmbed()
             .setTitle('General Commands')

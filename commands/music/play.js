@@ -1,10 +1,16 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
+const { minArgs, callback } = require('../moderation/ban');
  
 module.exports = {
     name: 'play',
-    description: 'Joins and plays a video from youtube',
-    async execute(client, message, args) {
+    description: 'Joins a VC and plays a video from youtube',
+    commands: ['play', 'start', 'music', 'youtube', 'yt'],
+    expectedArgs: '<video name>',
+    minArgs: 1,
+    maxArgs: 1,
+    permissions: ['CONNECT'],
+    async callback(client, message, args) {
         const voiceChannel = message.member.voice.channel;
         
         

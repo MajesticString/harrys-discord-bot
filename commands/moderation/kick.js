@@ -1,7 +1,13 @@
 module.exports = {
     name: 'kick',
     description: "This command kicks a member!",
-    execute(client, message, args){
+    commands: ['kick'],
+    expectedArgs: '@user',
+    permissionError: 'You need to be able to manage messages to use this command!',
+    minArgs: '1',
+    maxArgs: '1',
+    permissions: ['KICK_MEMBERS'],
+    callback(client, message, args) {
         const target = message.mentions.users.first();
         if(target){
             const memberTarget = message.guild.members.cache.get(target.id);

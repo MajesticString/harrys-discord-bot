@@ -1,11 +1,14 @@
 const https = require('https');
-const Discord = require('discord.js');
 const url = 'https://www.reddit.com/r/meme/hot/.json?limit=100'
+const Discord = require('discord.js');
 
 module.exports = {
     name: 'meme',
     description: 'sends meme',
-    execute(client, message, args) {
+    commands: ['meme', 'maymay', 'meemee', 'reddit'],
+    permissionError: 'You need to be able to send messages.',
+    permissions: ['EMBED_LINKS'],
+    callback(client, message, args) {
         console.log('--meme' + args[0]);
         https.get(url, (result) => {
             var body = ''

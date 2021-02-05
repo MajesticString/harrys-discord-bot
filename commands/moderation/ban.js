@@ -1,7 +1,13 @@
 module.exports = {
     name: 'ban',
     description: "This command bans a member!",
-    execute(client, message, args){
+    commands: 'ban',
+    expectedArgs: '@user',
+    permissionError: 'You need moderator perms',
+    minArgs: '1',
+    maxArgs: '1',
+    permissions: ['BAN_MEMBERS'],
+    callback(client, message, args, text) {
         const target = message.mentions.users.first();
         if(target){
             const memberTarget = message.guild.members.cache.get(target.id);

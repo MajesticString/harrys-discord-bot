@@ -1,7 +1,12 @@
+const { callback } = require("../moderation/ban");
+
 module.exports = {
     name: 'leave',
     description: 'stop the bot and leave the channel',
-    async execute(client, message, args) {
+    commands: ['leave', 'stop', 'bye'],
+    permissionError: 'You need to be able to connect to voice channels to use this command.',
+    permissions: ['CONNECT'],
+    async callback(client, message, args) {
         const voiceChannel = message.member.voice.channel;
  
         if(!voiceChannel) return message.channel.send("You need to be in a voice channel to stop the music!");
